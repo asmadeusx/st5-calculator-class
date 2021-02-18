@@ -1,0 +1,35 @@
+@import "./partials/mixins";
+@import "./partials/params";
+
+html, body{
+    min-height: 100%;
+}
+
+body {
+    background: rgb(222,222,222);
+    background-size: cover;
+    background: linear-gradient(0deg, rgba(222,222,222,1) 0%, rgb(205, 248, 255) 100%);
+    overflow: hidden;
+}
+
+.wrapper {
+    @include clear;
+    @include flex-center-column;
+}
+
+footer{
+    font-size: 15px;
+    margin-top: 20px;
+    text-align: center;
+    color: #808080;
+    user-select: none;
+}
+
+header{
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #808080;
+    user-select: none;
+}
