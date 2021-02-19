@@ -18,6 +18,7 @@
 .buttons__num {
     @include clear;
     @include flex-center-row;
+    flex-wrap: wrap;
 }
 
 .num__col1,
@@ -28,23 +29,13 @@
     @include flex-center-column;
 }
 
-.col1__n1,
-.col1__n4,
-.col1__n7,
-.col1__nDot,
-.col2__n2,
-.col2__n5,
-.col2__n8,
-.col2__n0,
-.col3__n3,
-.col3__n6,
-.col3__n9,
-.col3__nCLN,
+.num__btn,
 .operations__plus,
 .operations__minus,
 .operations__multiply,
 .operations__divide,
 .operations__result {
+    border-radius: 5%;
     position: relative;
     width: $btn-width;
     height: $btn-height;
@@ -57,7 +48,7 @@
     &:hover {
         opacity: .8;
         cursor: pointer;
-    }    
+    }
 }
 
 .operations__plus,
@@ -69,18 +60,7 @@
     background: radial-gradient(circle, rgb(186, 213, 247) 0%, rgba(148, 187, 233, 1) 100%);
 }
 
-.col1__n1,
-.col1__n4,
-.col1__n7,
-.col1__nDot,
-.col2__n2,
-.col2__n5,
-.col2__n8,
-.col2__n0,
-.col3__n3,
-.col3__n6,
-.col3__n9,
-.col3__nCLN {
+.num__btn {
     background: rgb(186, 227, 247);
     background: radial-gradient(circle, rgb(186, 227, 247) 0%, rgba(148, 187, 233, 1) 100%);
 }

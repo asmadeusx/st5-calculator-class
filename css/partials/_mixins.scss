@@ -18,7 +18,7 @@
 @mixin flex-center-column($dir:column) {
     display: flex;
     flex-direction: $dir;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
 
@@ -26,6 +26,6 @@
 @mixin flex-center-row($dir:row) {
     display: flex;
     flex-direction: $dir;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
 }
