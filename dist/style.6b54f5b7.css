@@ -91,7 +91,7 @@ header {
   align-items: flex-start;
 }
 
-.buttons__operations {
+.btns__oper {
   margin: 0;
   padding: 0;
   display: flex;
@@ -100,7 +100,7 @@ header {
   align-items: center;
 }
 
-.buttons__num {
+.btns__num {
   margin: 0;
   padding: 0;
   display: flex;
@@ -123,11 +123,7 @@ header {
 }
 
 .num__btn,
-.operations__plus,
-.operations__minus,
-.operations__multiply,
-.operations__divide,
-.operations__result {
+.oper__btn {
   border-radius: 5%;
   position: relative;
   width: 85px;
@@ -139,29 +135,13 @@ header {
   font-size: 25px;
   opacity: 1;
   transition: 0.3s opacity;
-}
-.num__btn:hover,
-.operations__plus:hover,
-.operations__minus:hover,
-.operations__multiply:hover,
-.operations__divide:hover,
-.operations__result:hover {
-  opacity: 0.8;
-  cursor: pointer;
-}
-
-.operations__plus,
-.operations__minus,
-.operations__multiply,
-.operations__divide,
-.operations__result {
-  background: #bad5f7;
-  background: radial-gradient(circle, #bad5f7 0%, #94bbe9 100%);
-}
-
-.num__btn {
   background: #bae3f7;
   background: radial-gradient(circle, #bae3f7 0%, #94bbe9 100%);
+}
+.num__btn:hover,
+.oper__btn:hover {
+  opacity: 0.8;
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=/style.6b54f5b7.css.map */

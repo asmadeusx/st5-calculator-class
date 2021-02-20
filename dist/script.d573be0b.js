@@ -120,20 +120,41 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 })({"js/script.js":[function(require,module,exports) {
 'use strict';
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var nums = document.querySelector('.btns__num');
+var opers = document.querySelector('.btns__oper');
+var numBtns = document.querySelectorAll('.num__btn');
 
-var numDiv = document.querySelector('.buttons__num');
-var test = document.createElement('num_btn');
+function crtNumBtn(parent, sel, inText) {
+  var div = document.createElement('div');
+  div.classList.add('num__btn', sel);
+  div.innerHTML = inText;
+  parent.append(div);
+}
 
-var Button = function Button(innertext, selector) {
-  _classCallCheck(this, Button);
+function crtOperBtn(parent, inText) {
+  var div = document.createElement('div');
+  div.classList.add('oper__btn');
+  div.innerHTML = inText;
+  parent.append(div);
+}
 
-  this.innertext = innertext;
-  this.selector = selector;
-};
-
-var btn1 = new Button('1', 'num__btn');
-document.numDiv.appendChild(test);
+crtNumBtn(nums, 'num__btn', '7');
+crtNumBtn(nums, 'num__btn', '8');
+crtNumBtn(nums, 'num__btn', '9');
+crtNumBtn(nums, 'num__btn', '4');
+crtNumBtn(nums, 'num__btn', '5');
+crtNumBtn(nums, 'num__btn', '6');
+crtNumBtn(nums, 'num__btn', '1');
+crtNumBtn(nums, 'num__btn', '2');
+crtNumBtn(nums, 'num__btn', '3');
+crtNumBtn(nums, 'DOT', '.');
+crtNumBtn(nums, 'num__btn', '0');
+crtNumBtn(nums, 'CLN', '<i class="fas fa-backspace"></i>');
+crtOperBtn(opers, '<i class="fas fa-plus plus"></i>');
+crtOperBtn(opers, '<i class="fas fa-minus minus"></i>');
+crtOperBtn(opers, '<i class="fas fa-times multiply"></i>');
+crtOperBtn(opers, '<i class="fas fa-divide divide"></i>');
+crtOperBtn(opers, '<i class="fas fa-equals"></i>');
 },{}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';

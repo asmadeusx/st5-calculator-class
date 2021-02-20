@@ -10,12 +10,12 @@
     align-items: flex-start;
 }
 
-.buttons__operations {
+.btns__oper {
     @include clear;
     @include flex-center-column;
 }
 
-.buttons__num {
+.btns__num {
     @include clear;
     @include flex-center-row;
     flex-wrap: wrap;
@@ -30,11 +30,7 @@
 }
 
 .num__btn,
-.operations__plus,
-.operations__minus,
-.operations__multiply,
-.operations__divide,
-.operations__result {
+.oper__btn {
     border-radius: 5%;
     position: relative;
     width: $btn-width;
@@ -49,18 +45,6 @@
         opacity: .8;
         cursor: pointer;
     }
-}
-
-.operations__plus,
-.operations__minus,
-.operations__multiply,
-.operations__divide,
-.operations__result {
-    background: rgb(186, 213, 247);
-    background: radial-gradient(circle, rgb(186, 213, 247) 0%, rgba(148, 187, 233, 1) 100%);
-}
-
-.num__btn {
     background: rgb(186, 227, 247);
     background: radial-gradient(circle, rgb(186, 227, 247) 0%, rgba(148, 187, 233, 1) 100%);
 }
