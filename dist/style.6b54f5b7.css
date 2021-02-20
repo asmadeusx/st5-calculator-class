@@ -9,7 +9,8 @@ body {
   overflow: hidden;
 }
 
-.wrapper {
+.wrapper,
+.app {
   margin: 0;
   padding: 0;
   display: flex;

@@ -12,7 +12,8 @@ body {
     overflow: hidden;
 }
 
-.wrapper {
+.wrapper,
+.app {
     @include clear;
     @include flex-center-column;
 }

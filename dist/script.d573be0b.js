@@ -118,11 +118,34 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"js/script.js":[function(require,module,exports) {
-'use strict';
+'use strict'; //#region Создание верстки
 
 var nums = document.querySelector('.btns__num');
 var opers = document.querySelector('.btns__oper');
 var numBtns = document.querySelectorAll('.num__btn');
+var app = document.querySelector('.app');
+var headerText = "\u041F\u0440\u043E\u0441\u0442\u0435\u0439\u0448\u0438\u0439 \u041A\u0430\u043B\u044C\u043A\u0443\u043B\u044F\u0442\u043E\u0440";
+var footerText = "\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u043D\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u044E\u0449\u0438\u0435\u0441\u044F \u0437\u0434\u0435\u0441\u044C \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0430\u0442 \u0438\u0445 \u0430\u0432\u0442\u043E\u0440\u0430\u043C<br />\n                    \u0421\u043E\u0437\u0434\u0430\u043D\u043E \u0432 \u0443\u0447\u0435\u0431\u043D\u044B\u0445 \u0446\u0435\u043B\u044F\u0445 \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E HTML, CSS(SASS) \u0438 JS<br />\n                    \u0410\u0432\u0442\u043E\u0440 : Asmadeus<br />\n                    2021 \u0433.";
+var iconArr = ['<i class="fas fa-plus"></i>', // 0 - Плюс
+'<i class="fas fa-minus"></i>', // 1 - Минус
+'<i class="fas fa-times"></i>', // 2 - Умножение
+'<i class="fas fa-divide"></i>', // 3 - Деление
+'<i class="fas fa-equals"></i>' // 4 - Равно
+];
+var operSelectors = ['plus', // 0 - Плюс
+'minus', // 1 - Минус
+'multiply', // 2 - Умножение
+'divide', // 3 - Деление
+'result' // 4 - Равно
+];
+var btnArr = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '.', '0', '<i class="fas fa-backspace"></i>'];
+
+function createElement(element, selector, parent, inHTML) {
+  var elem = document.createElement(element);
+  elem.classList.add(selector);
+  elem.innerHTML = inHTML;
+  parent.append(elem);
+}
 
 function crtNumBtn(parent, sel, inText) {
   var div = document.createElement('div');
@@ -131,30 +154,59 @@ function crtNumBtn(parent, sel, inText) {
   parent.append(div);
 }
 
-function crtOperBtn(parent, inText) {
+function crtOperBtn(parent, inText, operSelectors) {
   var div = document.createElement('div');
-  div.classList.add('oper__btn');
+  div.classList.add('oper__btn', operSelectors);
   div.innerHTML = inText;
   parent.append(div);
-}
+} // Создаем Заголовок
 
-crtNumBtn(nums, 'num__btn', '7');
-crtNumBtn(nums, 'num__btn', '8');
-crtNumBtn(nums, 'num__btn', '9');
-crtNumBtn(nums, 'num__btn', '4');
-crtNumBtn(nums, 'num__btn', '5');
-crtNumBtn(nums, 'num__btn', '6');
-crtNumBtn(nums, 'num__btn', '1');
-crtNumBtn(nums, 'num__btn', '2');
-crtNumBtn(nums, 'num__btn', '3');
-crtNumBtn(nums, 'DOT', '.');
-crtNumBtn(nums, 'num__btn', '0');
-crtNumBtn(nums, 'CLN', '<i class="fas fa-backspace"></i>');
-crtOperBtn(opers, '<i class="fas fa-plus plus"></i>');
-crtOperBtn(opers, '<i class="fas fa-minus minus"></i>');
-crtOperBtn(opers, '<i class="fas fa-times multiply"></i>');
-crtOperBtn(opers, '<i class="fas fa-divide divide"></i>');
-crtOperBtn(opers, '<i class="fas fa-equals"></i>');
+
+createElement('header', 'header', app, headerText); // Создаем "Корпус Калькулятора"
+
+createElement('div', 'calc', app, ''); // Создаем Дисплей на Корпусе
+
+createElement('div', 'calc__display', app.children[1], ''); // Создаем Кнопочный блок на Корпусе
+
+createElement('div', 'calc__buttons', app.children[1], ''); // Создаем циклом Кнопки в цифровом блоке
+
+createElement('div', 'btns__num', app.children[1].children[1], '');
+
+for (var i = 0; i < 12; i++) {
+  var div = app.children[1].children[1].children[0];
+  crtNumBtn(div, 'num__btn', btnArr[i]);
+} // Создаем циклом Кнопки Управления
+
+
+createElement('div', 'btns__oper', app.children[1].children[1], '');
+
+for (var _i = 0; _i < 5; _i++) {
+  var _div = app.children[1].children[1].children[1];
+  crtOperBtn(_div, iconArr[_i], operSelectors[_i]);
+} // Создаем Подвал
+
+
+createElement('footer', 'footer', app, footerText); //#endregion
+//#region Обработчики и функционал
+
+var calcNumBtns = document.querySelector('.num__btn');
+var calcOperPlus = document.querySelector('.plus');
+var calcOperMinus = document.querySelector('.minus');
+var calcOperMultiply = document.querySelector('.multiply');
+var calcOperDivide = document.querySelector('.divide');
+var calcOperResult = document.querySelector('.result');
+var calcNums = document.querySelector('.btns__num').children;
+var calcOpers = document.querySelector('.btns__oper').children; // console.log(calcNumBtns);
+// console.log(calcOperPlus);
+// console.log(calcOperMinus);
+// console.log(calcOperMultiply);
+// console.log(calcOperDivide);
+// console.log(calcOperResult);
+
+console.log('-----------------------');
+console.log(calcOpers);
+console.log('-----------------------');
+console.log(calcNums); //#endregion
 },{}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
