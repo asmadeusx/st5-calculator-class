@@ -41,6 +41,7 @@ header {
   background: #494949;
   height: 460px;
   width: 340px;
+  border: 5px solid black;
   margin: 0;
   padding: 0;
   display: flex;
@@ -65,18 +66,7 @@ header {
   font-weight: bold;
   font-size: 30px;
   float: right;
-}
-
-.display__numA,
-.display__oper,
-.display__numB {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 76.6666666667px;
-  width: 113.3333333333px;
+  overflow: hidden;
 }
 
 .calc__buttons {

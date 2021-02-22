@@ -119,10 +119,20 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"js/script.js":[function(require,module,exports) {
 'use strict'; //#region Создание верстки
+// Получаем головной элемент
 
-var nums = document.querySelector('.btns__num');
-var opers = document.querySelector('.btns__oper');
-var numBtns = document.querySelectorAll('.num__btn');
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var app = document.querySelector('.app');
 var headerText = "\u041F\u0440\u043E\u0441\u0442\u0435\u0439\u0448\u0438\u0439 \u041A\u0430\u043B\u044C\u043A\u0443\u043B\u044F\u0442\u043E\u0440";
 var footerText = "\u0412\u0441\u0435 \u043F\u0440\u0430\u0432\u0430 \u043D\u0430 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u044E\u0449\u0438\u0435\u0441\u044F \u0437\u0434\u0435\u0441\u044C \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u044B \u043F\u0440\u0438\u043D\u0430\u0434\u043B\u0435\u0436\u0430\u0442 \u0438\u0445 \u0430\u0432\u0442\u043E\u0440\u0430\u043C<br />\n                    \u0421\u043E\u0437\u0434\u0430\u043D\u043E \u0432 \u0443\u0447\u0435\u0431\u043D\u044B\u0445 \u0446\u0435\u043B\u044F\u0445 \u0441 \u043F\u043E\u043C\u043E\u0449\u044C\u044E HTML, CSS(SASS) \u0438 JS<br />\n                    \u0410\u0432\u0442\u043E\u0440 : Asmadeus<br />\n                    2021 \u0433.";
@@ -138,7 +148,7 @@ var operSelectors = ['plus', // 0 - Плюс
 'divide', // 3 - Деление
 'result' // 4 - Равно
 ];
-var btnArr = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '.', '0', '<i class="fas fa-backspace"></i>'];
+var btnArr = ['7', '8', '9', '4', '5', '6', '1', '2', '3', '.', '0', '<i class="fas fa-trash"></i>'];
 
 function createElement(element, selector, parent, inHTML) {
   var elem = document.createElement(element);
@@ -148,14 +158,14 @@ function createElement(element, selector, parent, inHTML) {
 }
 
 function crtNumBtn(parent, sel, inText) {
-  var div = document.createElement('div');
+  var div = document.createElement('button');
   div.classList.add('num__btn', sel);
   div.innerHTML = inText;
   parent.append(div);
 }
 
 function crtOperBtn(parent, inText, operSelectors) {
-  var div = document.createElement('div');
+  var div = document.createElement('button');
   div.classList.add('oper__btn', operSelectors);
   div.innerHTML = inText;
   parent.append(div);
@@ -188,26 +198,142 @@ for (var _i = 0; _i < 5; _i++) {
 
 createElement('footer', 'footer', app, footerText); //#endregion
 //#region Обработчики и функционал
+//#region Получение элементов со страницы
+// Кнопки Мат. Операций
 
-var calcNumBtns = document.querySelector('.num__btn');
-var calcOperPlus = document.querySelector('.plus');
 var calcOperMinus = document.querySelector('.minus');
 var calcOperMultiply = document.querySelector('.multiply');
 var calcOperDivide = document.querySelector('.divide');
-var calcOperResult = document.querySelector('.result');
-var calcNums = document.querySelector('.btns__num').children;
-var calcOpers = document.querySelector('.btns__oper').children; // console.log(calcNumBtns);
-// console.log(calcOperPlus);
-// console.log(calcOperMinus);
-// console.log(calcOperMultiply);
-// console.log(calcOperDivide);
-// console.log(calcOperResult);
+var calcOperResult = document.querySelector('.result'); // Список всех кнопок в виде псевдомассвиа
 
-console.log('-----------------------');
-console.log(calcOpers);
-console.log('-----------------------');
-console.log(calcNums); //#endregion
-},{}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var calcNums = document.querySelectorAll('.num__btn');
+var calcOpers = document.querySelectorAll('.oper__btn'); // Дисплей
+
+var display = document.querySelector('.calc__display'); // Добавления селектора CLN кнопке очищения
+//#endregion
+
+calcNums[11].classList.add('CLN');
+
+function cleanDisplay() {
+  display.innerHTML = '';
+}
+
+function numToDisplay(item) {
+  display.innerHTML += item.innerHTML;
+}
+
+function strip(number) {
+  return parseFloat(number).toPrecision(4);
+}
+
+function calculate() {
+  var _display$innerHTML$sp = display.innerHTML.split(/([+-/*])/gm),
+      _display$innerHTML$sp2 = _slicedToArray(_display$innerHTML$sp, 3),
+      first = _display$innerHTML$sp2[0],
+      symbol = _display$innerHTML$sp2[1],
+      last = _display$innerHTML$sp2[2];
+
+  var mathResult;
+
+  if (symbol == '+') {
+    mathResult = Number(first) + Number(last);
+  }
+
+  if (symbol == '-') {
+    mathResult = Number(first) - Number(last);
+  }
+
+  if (symbol == '*') {
+    mathResult = Number(first) * Number(last);
+  }
+
+  if (symbol == '/') {
+    if (last == '0') {
+      mathResult = 'Делить на 0 нельзя!';
+    } else if (Number(first) % Number(last) != 0) {
+      mathResult = strip(Number(first) / Number(last));
+    } else {
+      mathResult = Number(first) / Number(last);
+    }
+  }
+
+  display.innerHTML = mathResult;
+}
+
+function addELtoNums() {
+  calcNums.forEach(function (item) {
+    if (!item.classList.contains('CLN')) {
+      item.addEventListener('click', function () {
+        numToDisplay(item);
+      });
+    }
+  });
+  calcNums[11].addEventListener('click', cleanDisplay);
+}
+
+function addELtoOpers() {
+  calcOpers.forEach(function (item) {
+    if (!item.classList.contains('Result')) {
+      item.addEventListener('click', function () {
+        if (item.classList.contains('plus')) {
+          display.innerHTML += '+';
+        }
+
+        if (item.classList.contains('minus')) {
+          display.innerHTML += '-';
+        }
+
+        if (item.classList.contains('multiply')) {
+          display.innerHTML += '*';
+        }
+
+        if (item.classList.contains('divide')) {
+          display.innerHTML += '/';
+        }
+      });
+    }
+  });
+  calcOpers[4].addEventListener('click', calculate);
+}
+
+function removeELtoNums() {
+  calcNums.forEach(function (item) {
+    if (!item.classList.contains('CLN')) {
+      item.removeEventListener('click', function () {
+        numToDisplay(item);
+      });
+    }
+  });
+}
+
+function removeELtoOpers() {
+  calcOpers.forEach(function (item) {
+    if (!item.classList.contains('Result')) {
+      item.removeEventListener('click', function () {
+        if (item.classList.contains('plus')) {
+          display.innerHTML += '+';
+        }
+
+        if (item.classList.contains('minus')) {
+          display.innerHTML += '-';
+        }
+
+        if (item.classList.contains('multiply')) {
+          display.innerHTML += '*';
+        }
+
+        if (item.classList.contains('divide')) {
+          display.innerHTML += '/';
+        }
+      });
+    }
+  });
+  calcOpers[4].removeEventListener('click', calculate);
+}
+
+addELtoNums();
+addELtoOpers(); //#endregion
+},{}],"C:/Users/Asmadeus/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -235,7 +361,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "24976" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50586" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -411,5 +537,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel/src/builtins/hmr-runtime.js","js/script.js"], null)
+},{}]},{},["C:/Users/Asmadeus/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/script.js"], null)
 //# sourceMappingURL=/script.d573be0b.js.map

@@ -12,13 +12,5 @@
     font-weight: bold;
     font-size: 30px;
     float: right;
-}
-
-.display__numA,
-.display__oper,
-.display__numB {
-    @include clear;
-    @include flex-center;
-    height: $display-height;
-    width: $display-width / 3;
+    overflow: hidden;
 }

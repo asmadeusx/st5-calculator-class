@@ -1,10 +1,9 @@
 'use strict';
 
 //#region Создание верстки
-const nums = document.querySelector('.btns__num');
-const opers = document.querySelector('.btns__oper');
-const numBtns = document.querySelectorAll('.num__btn');
+// Получаем головной элемент
 const app = document.querySelector('.app');
+
 const headerText = `Простейший Калькулятор`;
 const footerText = `Все права на использующиеся здесь элементы принадлежат их авторам<br />
                     Создано в учебных целях с помощью HTML, CSS(SASS) и JS<br />
@@ -36,7 +35,7 @@ const btnArr = [
     '3',
     '.',
     '0',
-    '<i class="fas fa-backspace"></i>'
+    '<i class="fas fa-trash"></i>'
 ];
 
 function createElement(element, selector, parent, inHTML) {
@@ -47,14 +46,14 @@ function createElement(element, selector, parent, inHTML) {
 }
 
 function crtNumBtn(parent, sel, inText) {
-    const div = document.createElement('div');
+    const div = document.createElement('button');
     div.classList.add('num__btn', sel);
     div.innerHTML = inText;
     parent.append(div);
 }
 
 function crtOperBtn(parent, inText, operSelectors) {
-    const div = document.createElement('div');
+    const div = document.createElement('button');
     div.classList.add('oper__btn', operSelectors);
     div.innerHTML = inText;
     parent.append(div);
@@ -84,24 +83,122 @@ createElement('footer', 'footer', app, footerText);
 //#endregion
 
 //#region Обработчики и функционал
-const calcNumBtns = document.querySelector('.num__btn');
-const calcOperPlus = document.querySelector('.plus');
+
+//#region Получение элементов со страницы
+// Кнопки Мат. Операций
 const calcOperMinus = document.querySelector('.minus');
 const calcOperMultiply = document.querySelector('.multiply');
 const calcOperDivide = document.querySelector('.divide');
 const calcOperResult = document.querySelector('.result');
-const calcNums = document.querySelector('.btns__num').children;
-const calcOpers = document.querySelector('.btns__oper').children;
+// Список всех кнопок в виде псевдомассвиа
+const calcNums = document.querySelectorAll('.num__btn');
+const calcOpers = document.querySelectorAll('.oper__btn');
+// Дисплей
+const display = document.querySelector('.calc__display');
+// Добавления селектора CLN кнопке очищения
+//#endregion
+
+calcNums[11].classList.add('CLN');
+
+function cleanDisplay() {
+    display.innerHTML = '';
+}
+function numToDisplay(item) {
+    display.innerHTML += item.innerHTML
+}
+function strip(number) {
+    return (parseFloat(number).toPrecision(4));
+}
+function calculate() {
+    const [first, symbol, last] = display.innerHTML.split(/([+-/*])/gm);
+    let mathResult
+    if (symbol == '+') {
+        mathResult = Number(first) + Number(last);
+    }
+    if (symbol == '-') {
+        mathResult = Number(first) - Number(last);
+    }
+    if (symbol == '*') {
+        mathResult = Number(first) * Number(last);
+    }
+    if (symbol == '/') {
+        if (last == '0') {
+            mathResult = 'Делить на 0 нельзя!'
+        } else if (Number(first) % Number(last) != 0) {
+            mathResult = strip(Number(first) / Number(last));
+        } else {
+            mathResult = Number(first) / Number(last);
+        }
+    }
+    display.innerHTML = mathResult;
+}
 
 
-// console.log(calcNumBtns);
-// console.log(calcOperPlus);
-// console.log(calcOperMinus);
-// console.log(calcOperMultiply);
-// console.log(calcOperDivide);
-// console.log(calcOperResult);
-console.log('-----------------------');
-console.log(calcOpers);
-console.log('-----------------------');
-console.log(calcNums);
+function addELtoNums() {
+    calcNums.forEach(item => {
+        if (!item.classList.contains('CLN')) {
+            item.addEventListener('click', () => {
+                numToDisplay(item);
+            })
+        }
+    });
+    calcNums[11].addEventListener('click', cleanDisplay);
+}
+function addELtoOpers() {
+    calcOpers.forEach(item => {
+        if (!item.classList.contains('Result')) {
+            item.addEventListener('click', () => {
+                if (item.classList.contains('plus')) {
+                    display.innerHTML += '+';
+                }
+                if (item.classList.contains('minus')) {
+                    display.innerHTML += '-';
+                }
+                if (item.classList.contains('multiply')) {
+                    display.innerHTML += '*';
+                }
+                if (item.classList.contains('divide')) {
+                    display.innerHTML += '/';
+                }
+            })
+        }
+    })
+    calcOpers[4].addEventListener('click', calculate);
+}
+
+
+function removeELtoNums() {
+    calcNums.forEach(item => {
+        if (!item.classList.contains('CLN')) {
+            item.removeEventListener('click', () => {
+                numToDisplay(item);
+            })
+        }
+    });
+}
+function removeELtoOpers() {
+    calcOpers.forEach(item => {
+        if (!item.classList.contains('Result')) {
+            item.removeEventListener('click', () => {
+                if (item.classList.contains('plus')) {
+                    display.innerHTML += '+';
+                }
+                if (item.classList.contains('minus')) {
+                    display.innerHTML += '-';
+                }
+                if (item.classList.contains('multiply')) {
+                    display.innerHTML += '*';
+                }
+                if (item.classList.contains('divide')) {
+                    display.innerHTML += '/';
+                }
+            })
+        }
+    })
+    calcOpers[4].removeEventListener('click', calculate);
+}
+
+addELtoNums();
+addELtoOpers();
+
 //#endregion
