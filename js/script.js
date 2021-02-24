@@ -104,14 +104,14 @@ function cleanDisplay() {
     display.innerHTML = '';
 }
 function numToDisplay(item) {
-    display.innerHTML += item.innerHTML
+    display.innerHTML += item.innerHTML;
 }
 function strip(number) {
     return (parseFloat(number).toPrecision(4));
 }
 function calculate() {
     const [first, symbol, last] = display.innerHTML.split(/([+-/*])/gm);
-    let mathResult
+    let mathResult;
     if (symbol == '+') {
         mathResult = Number(first) + Number(last);
     }
@@ -123,7 +123,7 @@ function calculate() {
     }
     if (symbol == '/') {
         if (last == '0') {
-            mathResult = 'Делить на 0 нельзя!'
+            mathResult = 'Делить на 0 нельзя!';
         } else if (Number(first) % Number(last) != 0) {
             mathResult = strip(Number(first) / Number(last));
         } else {
@@ -133,13 +133,12 @@ function calculate() {
     display.innerHTML = mathResult;
 }
 
-
 function addELtoNums() {
     calcNums.forEach(item => {
         if (!item.classList.contains('CLN')) {
             item.addEventListener('click', () => {
                 numToDisplay(item);
-            })
+            });
         }
     });
     calcNums[11].addEventListener('click', cleanDisplay);
@@ -160,19 +159,18 @@ function addELtoOpers() {
                 if (item.classList.contains('divide')) {
                     display.innerHTML += '/';
                 }
-            })
+            });
         }
-    })
+    });
     calcOpers[4].addEventListener('click', calculate);
 }
-
 
 function removeELtoNums() {
     calcNums.forEach(item => {
         if (!item.classList.contains('CLN')) {
             item.removeEventListener('click', () => {
                 numToDisplay(item);
-            })
+            });
         }
     });
 }
@@ -192,13 +190,23 @@ function removeELtoOpers() {
                 if (item.classList.contains('divide')) {
                     display.innerHTML += '/';
                 }
-            })
+            });
         }
-    })
+    });
     calcOpers[4].removeEventListener('click', calculate);
 }
 
+// console.log(calcNumBtns);
+// console.log(calcOperPlus);
+// console.log(calcOperMinus);
+// console.log(calcOperMultiply);
+// console.log(calcOperDivide);
+// console.log(calcOperResult);
+console.log('-----------------------');
+console.log(calcOpers);
+console.log('-----------------------');
+console.log(calcNums);
+
 addELtoNums();
 addELtoOpers();
-
 //#endregion
