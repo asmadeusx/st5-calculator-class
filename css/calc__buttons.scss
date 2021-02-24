@@ -1,0 +1,50 @@
+@import "./partials/mixins";
+@import "./partials/params";
+
+.calc__buttons {
+    position: relative;
+    height: $btn-height * 5;
+    width: $calc-width;
+    @include clear;
+    @include flex-center-row;
+    align-items: flex-start;
+}
+
+.btns__oper {
+    @include clear;
+    @include flex-center-column;
+}
+
+.btns__num {
+    @include clear;
+    @include flex-center-row;
+    flex-wrap: wrap;
+}
+
+.num__col1,
+.num__col2,
+.num__col3,
+.num__col4 {
+    @include clear;
+    @include flex-center-column;
+}
+
+.num__btn,
+.oper__btn {
+    border-radius: 5%;
+    position: relative;
+    width: $btn-width;
+    height: $btn-height;
+    @include flex-center;
+    font-weight: bold;
+    font-size: 25px;
+    opacity: 1;
+    transition: .3s opacity;
+
+    &:hover {
+        opacity: .8;
+        cursor: pointer;
+    }
+    background: rgb(186, 227, 247);
+    background: radial-gradient(circle, rgb(186, 227, 247) 0%, rgba(148, 187, 233, 1) 100%);
+}

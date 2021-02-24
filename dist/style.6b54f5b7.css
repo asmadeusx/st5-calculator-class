@@ -1,0 +1,138 @@
+html, body {
+  min-height: 100%;
+}
+
+body {
+  background: #dedede;
+  background-size: cover;
+  background: linear-gradient(0deg, #dedede 0%, #cdf8ff 100%);
+  overflow: hidden;
+}
+
+.wrapper,
+.app {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+footer {
+  font-size: 15px;
+  margin-top: 20px;
+  text-align: center;
+  color: #808080;
+  user-select: none;
+}
+
+header {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #808080;
+  user-select: none;
+}
+
+.calc {
+  position: relative;
+  background: #494949;
+  height: 460px;
+  width: 340px;
+  border: 5px solid black;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-items: flex-start;
+}
+
+.calc__display {
+  position: relative;
+  background: white;
+  height: 76.6666666667px;
+  width: 340px;
+  border-bottom: 5px solid black;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-weight: bold;
+  font-size: 30px;
+  float: right;
+  overflow: hidden;
+}
+
+.calc__buttons {
+  position: relative;
+  height: 383.3333333333px;
+  width: 340px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-items: flex-start;
+}
+
+.btns__oper {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.btns__num {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.num__col1,
+.num__col2,
+.num__col3,
+.num__col4 {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.num__btn,
+.oper__btn {
+  border-radius: 5%;
+  position: relative;
+  width: 85px;
+  height: 76.6666666667px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 25px;
+  opacity: 1;
+  transition: 0.3s opacity;
+  background: #bae3f7;
+  background: radial-gradient(circle, #bae3f7 0%, #94bbe9 100%);
+}
+.num__btn:hover,
+.oper__btn:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=/style.6b54f5b7.css.map */

@@ -1,2 +1,2 @@
 # st5-calculator-class
-Simple Calculator created with HTML, CSS and vanilla JS (with Classes)
+Simple Calculator v2 created with HTML, SCSS(SASS) and vanilla JS

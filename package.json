@@ -1,0 +1,34 @@
+{
+  "name": "st5-calculator-class",
+  "version": "1.0.0",
+  "description": "simple calculator with js classes",
+  "main": "index.js",
+  "dependencies": {
+    "parcel": "^1.12.4"
+  },
+  "devDependencies": {
+    "sass": "^1.32.8"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "parcel build index.html --public-url /",
+    "dev": "parcel index.html --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asmadeusx/st5-calculator-class.git"
+  },
+  "keywords": [
+    "html",
+    "css",
+    "sass",
+    "js",
+    "classes"
+  ],
+  "author": "Asmadeus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/asmadeusx/st5-calculator-class/issues"
+  },
+  "homepage": "https://github.com/asmadeusx/st5-calculator-class#readme"
+}
