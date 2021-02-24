@@ -157,48 +157,47 @@ function numAfterDOT(number) {
     return (parseFloat(number).toFixed(2));
 }
 
+function historyWrite(a, b, c, d) {
+    if (app.children[1].children[1]) {
+        const historyDisplay = document.querySelector('.history__display');
+        const historyParagraph = document.createElement('p');
+        historyDisplay.append(historyParagraph);
+        historyParagraph.innerHTML = `${a} ${c} ${b} = ${d}`;
+    }
+}
+
+
 function calculate() {
     const calcArr = display.innerHTML.split(/(-?\d+(?:\.\d+)?)\s*([-+*\/])\s*(-?\d+(?:\.\d+)?)/gm);
     let mathResult;
     calcArr[1] = parseFloat(calcArr[1]);
     calcArr[3] = parseFloat(calcArr[3]);
-
-    // Дисплей Истории
-    const historyDisplay = document.querySelector('.history__display');
-    const historyParagraph = document.createElement('p');
+    
     if (calcArr[2] == '/') {
         if (calcArr[3] == 0) {
             mathResult = `Делить на 0 нельзя!`;
-            historyDisplay.append(historyParagraph);
-            historyParagraph.innerHTML = `${calcArr[1]} / ${calcArr[3]} = ${mathResult}`;
         } else {
             mathResult = calcArr[1] / calcArr[3];
-            historyDisplay.append(historyParagraph);
-            historyParagraph.innerHTML = `${calcArr[1]} / ${calcArr[3]} = ${mathResult}`;
         }
+        historyWrite(calcArr[1], calcArr[3], '/', mathResult);
     }
     if (calcArr[2] == '*') {
         mathResult = calcArr[1] * calcArr[3];
-        historyDisplay.append(historyParagraph);
-        historyParagraph.innerHTML = `${calcArr[1]} * ${calcArr[3]} = ${mathResult}`;
+        historyWrite(calcArr[1], calcArr[3], '*', mathResult);
     }
     if (calcArr[2] == '-') {
         mathResult = calcArr[1] - calcArr[3];
-        historyDisplay.append(historyParagraph);
-        historyParagraph.innerHTML = `${calcArr[1]} - ${calcArr[3]} = ${mathResult}`;
+        historyWrite(calcArr[1], calcArr[3], '-', mathResult);
     }
     if (calcArr[2] == '+') {
         mathResult = calcArr[1] + calcArr[3];
-        historyDisplay.append(historyParagraph);
-        historyParagraph.innerHTML = `${calcArr[1]} + ${calcArr[3]} = ${mathResult}`;
+        historyWrite(calcArr[1], calcArr[3], '+', mathResult);
     }
     if (typeof display.innerHTML == 'string') {
         display.innerHTML = mathResult;
     } else {
         display.innerHTML = numAfterDOT(mathResult);
     }
-    console.log(calcArr);
-    console.log(`Результат : ${numAfterDOT(mathResult)}`);
 }
 
 function addELtoNums() {
