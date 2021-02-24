@@ -60,6 +60,7 @@ function crtOperBtn(parent, inText, operSelectors) {
     div.innerHTML = inText;
     parent.append(div);
 }
+// Карта APP
 // app.children[0] - header
 // app.children[1] - calc
 // app.children[1].children[0] - calc__main
@@ -144,7 +145,6 @@ historyBtn.addEventListener('click', () => {
     }
 });
 
-
 function cleanDisplay() {
     display.innerHTML = '';
 }
@@ -166,13 +166,12 @@ function historyWrite(a, b, c, d) {
     }
 }
 
-
 function calculate() {
     const calcArr = display.innerHTML.split(/(-?\d+(?:\.\d+)?)\s*([-+*\/])\s*(-?\d+(?:\.\d+)?)/gm);
     let mathResult;
     calcArr[1] = parseFloat(calcArr[1]);
     calcArr[3] = parseFloat(calcArr[3]);
-    
+
     if (calcArr[2] == '/') {
         if (calcArr[3] == 0) {
             mathResult = `Делить на 0 нельзя!`;
