@@ -1,0 +1,20 @@
+@import "./partials/mixins";
+@import "./partials/params";
+
+.history__display {
+    background: rgb(255, 255, 255);
+    height: $calc-height+5;
+    width: $calc-width;
+    border-right: 5px solid black;
+    font-weight: bold;
+    font-size: 30px;
+    float: right;
+    overflow: scroll;
+    @include clear;
+    @include flex-center-column;
+    @include flex-top;
+
+    p {
+        @include clear;
+    }
+}

@@ -1,0 +1,25 @@
+@import "./partials/mixins";
+@import "./partials/params";
+
+.main__display {
+    position: relative;
+    border-bottom: 5px solid black;
+    @include clear;
+    @include flex-center-row;
+
+    .display__display {
+        background: rgb(255, 255, 255);
+        height: $display-height;
+        width: $display-width - $historyBtn-width - 5;
+        border-right: 5px solid black;
+        font-weight: bold;
+        font-size: 30px;
+        float: right;
+        overflow: hidden;
+    }
+
+    .display__historyBtn {
+        height: $historyBtn-height;
+        width: $historyBtn-width;
+    }
+}

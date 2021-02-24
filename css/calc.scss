@@ -2,9 +2,26 @@
 @import "./partials/params";
 
 .calc {
+    @include clear;
+    @include flex-center-row;
+    @include flex-top;
+}
+
+.calc__main {
     position: relative;
     background: rgb(73, 73, 73);
-    height: $calc-height;
+    height: $calc-height+5;
+    width: $calc-width;
+    border: 5px solid black;
+    @include clear;
+    @include flex-center-column;
+    @include flex-top;
+}
+
+.calc__history {
+    position: relative;
+    background: rgb(73, 73, 73);
+    height: $calc-height+5;
     width: $calc-width;
     border: 5px solid black;
     @include clear;

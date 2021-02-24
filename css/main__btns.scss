@@ -1,7 +1,7 @@
 @import "./partials/mixins";
 @import "./partials/params";
 
-.calc__buttons {
+.main__btns {
     position: relative;
     height: $btn-height * 5;
     width: $calc-width;
@@ -20,15 +20,6 @@
     @include flex-center-row;
     flex-wrap: wrap;
 }
-
-.num__col1,
-.num__col2,
-.num__col3,
-.num__col4 {
-    @include clear;
-    @include flex-center-column;
-}
-
 .num__btn,
 .oper__btn {
     border-radius: 5%;

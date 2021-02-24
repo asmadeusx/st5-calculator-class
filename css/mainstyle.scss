@@ -19,6 +19,7 @@ body {
 }
 
 footer{
+    width: $calc-width;
     font-size: 15px;
     margin-top: 20px;
     text-align: center;
@@ -27,10 +28,16 @@ footer{
 }
 
 header{
+    width: $calc-width;
     font-size: 25px;
     font-weight: bold;
     margin-bottom: 20px;
     text-align: center;
     color: #808080;
     user-select: none;
+
+    h5 {
+        font-size: 20px;
+        @include clear;
+    }
 }
