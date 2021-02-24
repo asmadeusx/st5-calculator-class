@@ -4,7 +4,7 @@
 .calc {
     position: relative;
     background: rgb(73, 73, 73);
-    height: $calc-height;
+    height: $calc-height+5;
     width: $calc-width;
     border: 5px solid black;
     @include clear;
