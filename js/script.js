@@ -60,33 +60,54 @@ function crtOperBtn(parent, inText, operSelectors) {
     div.innerHTML = inText;
     parent.append(div);
 }
+// app.children[0] - header
+// app.children[1] - calc
+// app.children[1].children[0] - calc__main
+// app.children[1].children[0].children[0] - main__display
+// app.children[1].children[0].children[0].children[0] - display__display
+// app.children[1].children[0].children[0].children[1] - display__historyBtn
+// app.children[1].children[0].children[1] - main__btns
+// app.children[1].children[0].children[1].children[0] - btns__num
+// app.children[1].children[0].children[1].children[1] - btns__oper
+// app.children[1].children[1] - calc__history
+// app.children[1].children[1].children[0] - history__display
+// app.children[2] - footer
+
 // Создаем Заголовок
 createElement('header', 'header', app, headerText);
+
 // Создаем "Корпус Калькулятора"
 createElement('div', 'calc', app, '');
+
 // Создаем Левую часть
+createElement('div', 'calc__main', app.children[1], '');
+// Создаем Правую часть
+// createElement('div', 'calc__history', app.children[1], '');
+
 // Создаем Блок Дисплея на Корпусе
-createElement('div', 'calc__display', app.children[1], '');
+createElement('div', 'main__display', app.children[1].children[0], '');
 // Создаем Дисплей в блоке Дисплея
-createElement('div', 'display__display', app.children[1].children[0], '');
+createElement('div', 'display__display', app.children[1].children[0].children[0], '');
 // Создаем Кнопку истории в блоке Дисплея
-createElement('button', 'display__historyBtn', app.children[1].children[0], '<i class="fas fa-chevron-right"></i>');
+createElement('button', 'display__historyBtn', app.children[1].children[0].children[0], '<i class="fas fa-chevron-right"></i>');
 // Создаем Кнопочный блок на Корпусе
-createElement('div', 'calc__buttons', app.children[1], '');
+createElement('div', 'main__btns', app.children[1].children[0], '');
 // Создаем циклом Кнопки в цифровом блоке
-createElement('div', 'btns__num', app.children[1].children[1], '');
+createElement('div', 'btns__num', app.children[1].children[0].children[1], '');
 for (let i = 0; i < 12; i++) {
-    const div = app.children[1].children[1].children[0];
+    const div = app.children[1].children[0].children[1].children[0];
     crtNumBtn(div, 'num__btn', btnArr[i]);
 }
 // Создаем циклом Кнопки Управления
-createElement('div', 'btns__oper', app.children[1].children[1], '');
+createElement('div', 'btns__oper', app.children[1].children[0].children[1], '');
 for (let i = 0; i < 5; i++) {
-    const div = app.children[1].children[1].children[1];
+    const div = app.children[1].children[0].children[1].children[1];
     crtOperBtn(div, iconArr[i], operSelectors[i]);
 }
+
 // Создаем Подвал
 createElement('footer', 'footer', app, footerText);
+
 //#endregion
 
 //#region Обработчики и функционал
@@ -102,10 +123,27 @@ const calcNums = document.querySelectorAll('.num__btn');
 const calcOpers = document.querySelectorAll('.oper__btn');
 // Дисплей
 const display = document.querySelector('.display__display');
-// Добавления селектора CLN кнопке очищения
-//#endregion
+// Кнопка Истории
+const historyBtn = document.querySelector('.display__historyBtn');
 
+
+// Добавления селектора CLN кнопке очищения.
 calcNums[11].classList.add('CLN');
+// Добавления селектора CLN кнопке очищения.
+calcNums[11].classList.add('CLN');
+
+//#endregion
+historyBtn.addEventListener('click', () => {
+    if (app.children[1].children[1]) {
+        app.children[1].children[1].remove();
+        historyBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+    } else {
+        createElement('div', 'calc__history', app.children[1], '');
+        createElement('div', 'history__display', app.children[1].children[1], '');
+        historyBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+    }
+});
+
 
 function cleanDisplay() {
     display.innerHTML = '';
@@ -124,21 +162,35 @@ function calculate() {
     let mathResult;
     calcArr[1] = parseFloat(calcArr[1]);
     calcArr[3] = parseFloat(calcArr[3]);
+
+    // Дисплей Истории
+    const historyDisplay = document.querySelector('.history__display');
+    const historyParagraph = document.createElement('p');
     if (calcArr[2] == '/') {
         if (calcArr[3] == 0) {
             mathResult = `Делить на 0 нельзя!`;
+            historyDisplay.append(historyParagraph);
+            historyParagraph.innerHTML = `${calcArr[1]} / ${calcArr[3]} = ${mathResult}`;
         } else {
             mathResult = calcArr[1] / calcArr[3];
+            historyDisplay.append(historyParagraph);
+            historyParagraph.innerHTML = `${calcArr[1]} / ${calcArr[3]} = ${mathResult}`;
         }
     }
     if (calcArr[2] == '*') {
         mathResult = calcArr[1] * calcArr[3];
+        historyDisplay.append(historyParagraph);
+        historyParagraph.innerHTML = `${calcArr[1]} * ${calcArr[3]} = ${mathResult}`;
     }
     if (calcArr[2] == '-') {
         mathResult = calcArr[1] - calcArr[3];
+        historyDisplay.append(historyParagraph);
+        historyParagraph.innerHTML = `${calcArr[1]} - ${calcArr[3]} = ${mathResult}`;
     }
     if (calcArr[2] == '+') {
         mathResult = calcArr[1] + calcArr[3];
+        historyDisplay.append(historyParagraph);
+        historyParagraph.innerHTML = `${calcArr[1]} + ${calcArr[3]} = ${mathResult}`;
     }
     if (typeof display.innerHTML == 'string') {
         display.innerHTML = mathResult;

@@ -1,7 +1,7 @@
 @import "./partials/mixins";
 @import "./partials/params";
 
-.calc__display {
+.main__display {
     position: relative;
     border-bottom: 5px solid black;
     @include clear;

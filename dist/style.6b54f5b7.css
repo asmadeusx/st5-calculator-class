@@ -44,6 +44,16 @@ header h5 {
 }
 
 .calc {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  align-items: flex-start;
+}
+
+.calc__main {
   position: relative;
   background: #494949;
   height: 465px;
@@ -58,7 +68,22 @@ header h5 {
   align-items: flex-start;
 }
 
-.calc__display {
+.calc__history {
+  position: relative;
+  background: #494949;
+  height: 465px;
+  width: 340px;
+  border: 5px solid black;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-items: flex-start;
+}
+
+.main__display {
   position: relative;
   border-bottom: 5px solid black;
   margin: 0;
@@ -68,7 +93,7 @@ header h5 {
   justify-content: flex-start;
   align-items: center;
 }
-.calc__display .display__display {
+.main__display .display__display {
   background: white;
   height: 76.6666666667px;
   width: 306.6666666667px;
@@ -78,12 +103,12 @@ header h5 {
   float: right;
   overflow: hidden;
 }
-.calc__display .display__historyBtn {
+.main__display .display__historyBtn {
   height: 76.6666666667px;
   width: 28.3333333333px;
 }
 
-.calc__buttons {
+.main__btns {
   position: relative;
   height: 383.3333333333px;
   width: 340px;
@@ -115,18 +140,6 @@ header h5 {
   flex-wrap: wrap;
 }
 
-.num__col1,
-.num__col2,
-.num__col3,
-.num__col4 {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
 .num__btn,
 .oper__btn {
   border-radius: 5%;
@@ -147,6 +160,28 @@ header h5 {
 .oper__btn:hover {
   opacity: 0.8;
   cursor: pointer;
+}
+
+.history__display {
+  background: white;
+  height: 465px;
+  width: 340px;
+  border-right: 5px solid black;
+  font-weight: bold;
+  font-size: 30px;
+  float: right;
+  overflow: scroll;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-items: flex-start;
+}
+.history__display p {
+  margin: 0;
+  padding: 0;
 }
 
 /*# sourceMappingURL=/style.6b54f5b7.css.map */

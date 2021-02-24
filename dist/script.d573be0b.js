@@ -157,34 +157,49 @@ function crtOperBtn(parent, inText, operSelectors) {
   div.classList.add('oper__btn', operSelectors);
   div.innerHTML = inText;
   parent.append(div);
-} // Создаем Заголовок
+} // app.children[0] - header
+// app.children[1] - calc
+// app.children[1].children[0] - calc__main
+// app.children[1].children[0].children[0] - main__display
+// app.children[1].children[0].children[0].children[0] - display__display
+// app.children[1].children[0].children[0].children[1] - display__historyBtn
+// app.children[1].children[0].children[1] - main__btns
+// app.children[1].children[0].children[1].children[0] - btns__num
+// app.children[1].children[0].children[1].children[1] - btns__oper
+// app.children[1].children[1] - calc__history
+// app.children[1].children[1].children[0] - history__display
+// app.children[2] - footer
+// Создаем Заголовок
 
 
 createElement('header', 'header', app, headerText); // Создаем "Корпус Калькулятора"
 
 createElement('div', 'calc', app, ''); // Создаем Левую часть
+
+createElement('div', 'calc__main', app.children[1], ''); // Создаем Правую часть
+// createElement('div', 'calc__history', app.children[1], '');
 // Создаем Блок Дисплея на Корпусе
 
-createElement('div', 'calc__display', app.children[1], ''); // Создаем Дисплей в блоке Дисплея
+createElement('div', 'main__display', app.children[1].children[0], ''); // Создаем Дисплей в блоке Дисплея
 
-createElement('div', 'display__display', app.children[1].children[0], ''); // Создаем Кнопку истории в блоке Дисплея
+createElement('div', 'display__display', app.children[1].children[0].children[0], ''); // Создаем Кнопку истории в блоке Дисплея
 
-createElement('button', 'display__historyBtn', app.children[1].children[0], '<i class="fas fa-chevron-right"></i>'); // Создаем Кнопочный блок на Корпусе
+createElement('button', 'display__historyBtn', app.children[1].children[0].children[0], '<i class="fas fa-chevron-right"></i>'); // Создаем Кнопочный блок на Корпусе
 
-createElement('div', 'calc__buttons', app.children[1], ''); // Создаем циклом Кнопки в цифровом блоке
+createElement('div', 'main__btns', app.children[1].children[0], ''); // Создаем циклом Кнопки в цифровом блоке
 
-createElement('div', 'btns__num', app.children[1].children[1], '');
+createElement('div', 'btns__num', app.children[1].children[0].children[1], '');
 
 for (var i = 0; i < 12; i++) {
-  var div = app.children[1].children[1].children[0];
+  var div = app.children[1].children[0].children[1].children[0];
   crtNumBtn(div, 'num__btn', btnArr[i]);
 } // Создаем циклом Кнопки Управления
 
 
-createElement('div', 'btns__oper', app.children[1].children[1], '');
+createElement('div', 'btns__oper', app.children[1].children[0].children[1], '');
 
 for (var _i = 0; _i < 5; _i++) {
-  var _div = app.children[1].children[1].children[1];
+  var _div = app.children[1].children[0].children[1].children[1];
   crtOperBtn(_div, iconArr[_i], operSelectors[_i]);
 } // Создаем Подвал
 
@@ -202,10 +217,24 @@ var calcOperResult = document.querySelector('.result'); // Список всех
 var calcNums = document.querySelectorAll('.num__btn');
 var calcOpers = document.querySelectorAll('.oper__btn'); // Дисплей
 
-var display = document.querySelector('.display__display'); // Добавления селектора CLN кнопке очищения
-//#endregion
+var display = document.querySelector('.display__display'); // Кнопка Истории
 
-calcNums[11].classList.add('CLN');
+var historyBtn = document.querySelector('.display__historyBtn'); // Добавления селектора CLN кнопке очищения.
+
+calcNums[11].classList.add('CLN'); // Добавления селектора CLN кнопке очищения.
+
+calcNums[11].classList.add('CLN'); //#endregion
+
+historyBtn.addEventListener('click', function () {
+  if (app.children[1].children[1]) {
+    app.children[1].children[1].remove();
+    historyBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+  } else {
+    createElement('div', 'calc__history', app.children[1], '');
+    createElement('div', 'history__display', app.children[1].children[1], '');
+    historyBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+  }
+});
 
 function cleanDisplay() {
   display.innerHTML = '';
@@ -223,26 +252,39 @@ function calculate() {
   var calcArr = display.innerHTML.split(/(-?\d+(?:\.\d+)?)\s*([-+*\/])\s*(-?\d+(?:\.\d+)?)/gm);
   var mathResult;
   calcArr[1] = parseFloat(calcArr[1]);
-  calcArr[3] = parseFloat(calcArr[3]);
+  calcArr[3] = parseFloat(calcArr[3]); // Дисплей Истории
+
+  var historyDisplay = document.querySelector('.history__display');
+  var historyParagraph = document.createElement('p');
 
   if (calcArr[2] == '/') {
     if (calcArr[3] == 0) {
       mathResult = "\u0414\u0435\u043B\u0438\u0442\u044C \u043D\u0430 0 \u043D\u0435\u043B\u044C\u0437\u044F!";
+      historyDisplay.append(historyParagraph);
+      historyParagraph.innerHTML = "".concat(calcArr[1], " / ").concat(calcArr[3], " = ").concat(mathResult);
     } else {
       mathResult = calcArr[1] / calcArr[3];
+      historyDisplay.append(historyParagraph);
+      historyParagraph.innerHTML = "".concat(calcArr[1], " / ").concat(calcArr[3], " = ").concat(mathResult);
     }
   }
 
   if (calcArr[2] == '*') {
     mathResult = calcArr[1] * calcArr[3];
+    historyDisplay.append(historyParagraph);
+    historyParagraph.innerHTML = "".concat(calcArr[1], " * ").concat(calcArr[3], " = ").concat(mathResult);
   }
 
   if (calcArr[2] == '-') {
     mathResult = calcArr[1] - calcArr[3];
+    historyDisplay.append(historyParagraph);
+    historyParagraph.innerHTML = "".concat(calcArr[1], " - ").concat(calcArr[3], " = ").concat(mathResult);
   }
 
   if (calcArr[2] == '+') {
     mathResult = calcArr[1] + calcArr[3];
+    historyDisplay.append(historyParagraph);
+    historyParagraph.innerHTML = "".concat(calcArr[1], " + ").concat(calcArr[3], " = ").concat(mathResult);
   }
 
   if (typeof display.innerHTML == 'string') {
@@ -356,7 +398,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "20349" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "27736" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
